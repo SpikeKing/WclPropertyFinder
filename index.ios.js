@@ -1,52 +1,59 @@
 /**
- * Sample React Native App
+ * React Native App - 搜房类应用
  * https://github.com/facebook/react-native
  */
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+'use strict';
 
-class WclPropertyFinder extends Component {
+var React = require('react-native');
+
+// 搜索页面
+var SearchPage = require('./SearchPage')
+
+class HelloWorld extends React.Component {
   render() {
+    // 代码视图
+    //return React.createElement(React.Text, {style: styles.text}, "Hello World!");
+
+    // JSX视图
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <React.Text style={styles.text}>
+        Hello World (Again)
+      </React.Text>
     );
   }
 }
 
-const styles = StyleSheet.create({
+// 使用Navigator管理组件, 注意: 不要纠结于细节, 学习为主
+class WclPropertyFinderApp extends React.Component {
+  render() {
+    return (
+      <React.NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: '搜房',
+          component: SearchPage,
+        }}/>
+    );
+  }
+}
+
+// 样式
+var styles = React.StyleSheet.create({
+  text: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 30,
+    margin: 80
+  },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    flex: 1
+  }
 });
 
-AppRegistry.registerComponent('WclPropertyFinder', () => WclPropertyFinder);
+// 注册组件
+React.AppRegistry.registerComponent(
+  'WclPropertyFinder', function () {
+    return WclPropertyFinderApp
+  }
+);
