@@ -24,7 +24,7 @@ class HelloWorld extends React.Component {
   }
 }
 
-// 使用Navigator管理组件, 注意: 不要纠结于细节, 学习为主
+// 使用Navigator管理组件, 注意: 不要纠结于跨平台, 学习为主
 class WclPropertyFinderApp extends React.Component {
   render() {
     return (
