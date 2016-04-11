@@ -6,6 +6,9 @@
 
 var React = require('react-native');
 
+// 查询结果模块
+var SearchResults = require('./SearchResults');
+
 // 用于去掉React的前缀, 不用写React.Text, 直接写Text
 var {
   StyleSheet,
@@ -37,35 +40,80 @@ function urlForQueryAndPage(key, value, pageNumber) {
 }
 
 class SearchPage extends Component {
-  // 构造器
+
+  /**
+   * 构造器
+   * @param props 状态
+   */
   constructor(props) {
     super(props);
     this.state = {
-      searchString: 'London',
-      isLoading: false
+      searchString: 'London', // 搜索词
+      isLoading: false, // 加载
+      message: '' // 消息
     };
   }
 
-  // 搜索文本改变, 状态的搜索词改变
+  /**
+   * 搜索文本改变, 状态的搜索词改变
+   * @param event 事件
+   */
   onSearchTextChanged(event) {
     //console.log('onSearchTextChanged');
     this.setState({searchString: event.nativeEvent.text});
     console.log(this.state.searchString);
   }
 
-  // 执行查询, 下划线表示私有
+  /**
+   * 执行网络请求, 下划线表示私有
+   * @param query url
+   * @private
+   */
   _executeQuery(query) {
     console.log(query);
     this.setState({isLoading: true});
+
+    fetch(query)
+      .then(response => response.json())
+      .then(json => this._handleResponse(json.response))
+      .catch(error => this.setState({
+        isLoading: false,
+        message: 'Something bad happened ' + error
+      }));
   }
 
-  // 点击查询
+  /**
+   * 处理网络请求的回调
+   *
+   * @param response 请求的返回值
+   * @private
+   */
+  _handleResponse(response) {
+    this.setState({isLoading: false, message: ''});
+    if (response.application_response_code.substr(0, 1) === '1') {
+      console.log('Properties found: ' + response.listings.length);
+      this.props.navigator.push({
+        title: 'Results',
+        component: SearchResults,
+        passProps: {listings: response.listings}
+      });
+    } else {
+      this.setState({message: 'Location not recognized; please try again.'});
+    }
+  }
+
+  /**
+   * 查询的点击事件
+   */
   onSearchPressed() {
     var query = urlForQueryAndPage('place_name', this.state.searchString, 1);
     this._executeQuery(query);
   }
 
-  // 渲染
+  /**
+   * 渲染页面
+   * @returns {XML} 搜索页
+   */
   render() {
     //console.log('SearchPage.render');
     var spinner = this.state.isLoading ?
@@ -101,11 +149,15 @@ class SearchPage extends Component {
         <Image source={require('./resources/house.png')}
                style={styles.image}/>
         {spinner}
+        <Text style={styles.description}>
+          {this.state.message}
+        </Text>
       </View>
     );
   }
 }
 
+// 样式集
 var styles = StyleSheet.create({
   description: {
     marginBottom: 20,
