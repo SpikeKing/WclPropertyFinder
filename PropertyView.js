@@ -1,7 +1,7 @@
 /**
+ * 房产的详细信息
  * Created by wangchenlong on 16/4/11.
  */
-
 'use strict'
 
 var React = require('react-native');
@@ -16,8 +16,8 @@ var {
 
 class PropertyView extends Component {
   render() {
-    var property = this.props.property;
-    var stats = property.bedroom_number + 'bed' + property.property_type;
+    var property = this.props.property; // 由SearchResult传递的搜索结果
+    var stats = property.bedroom_number + ' bed ' + property.property_type;
     if (property.bathroom_number) {
       stats += ', ' + property.bathroom_number + ' ' +
         (property.bathroom_number > 1 ? 'bathrooms' : 'bathroom');

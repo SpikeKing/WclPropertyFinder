@@ -99,7 +99,6 @@ class SearchPage extends Component {
 
   /**
    * 处理网络请求的回调
-   *
    * @param response 请求的返回值
    * @private
    */
@@ -107,8 +106,10 @@ class SearchPage extends Component {
     this.setState({isLoading: false, message: ''});
     if (response.application_response_code.substr(0, 1) === '1') {
       console.log('Properties found: ' + response.listings.length);
+
+      // 使用listings调用结果页面SearchResults
       this.props.navigator.push({
-        title: 'Results',
+        title: '搜索结果',
         component: SearchResults,
         passProps: {listings: response.listings}
       });
@@ -139,7 +140,7 @@ class SearchPage extends Component {
           搜索英国的房产
         </Text>
         <Text style={styles.description}>
-          使用地址(London), 邮编(W1S 3PR)均可
+          使用地址(London)/邮编(W1S 3PR)均可
         </Text>
         <View style={styles.flowRight}>
           <TextInput

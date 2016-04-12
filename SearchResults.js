@@ -23,11 +23,14 @@ var {
 
 /**
  * 搜索结果组件
- *
  * props的listings参数, 在调用时传递.
  */
 class SearchResults extends Component {
 
+  /**
+   * 构造器, 通过Navigator调用传递参数(passProps)
+   * @param props 状态属性
+   */
   constructor(props) {
     super(props);
     var dataSource = new ListView.DataSource(
@@ -38,16 +41,27 @@ class SearchResults extends Component {
     };
   }
 
+  /**
+   * 点击每行, 通过行数选择信息
+   * @param propertyGuid 行ID
+   */
   rowPressed(propertyGuid) {
     var property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
 
     this.props.navigator.push({
-      title: 'Property',
+      title: '房产信息',
       component: PropertyView,
       passProps: {property: property}
     });
   }
 
+  /**
+   * 渲染列表视图的每一行
+   * @param rowData 行数据
+   * @param sectionID 块ID
+   * @param rowID 行ID
+   * @returns {XML} 页面
+   */
   renderRow(rowData, sectionID, rowID) {
     var price = rowData.price_formatted.split(' ')[0];
     return (
@@ -67,6 +81,10 @@ class SearchResults extends Component {
     );
   }
 
+  /**
+   * 渲染, 每行使用renderRow渲染
+   * @returns {XML} 结果页面的布局
+   */
   render() {
     return (
       <ListView
@@ -77,6 +95,7 @@ class SearchResults extends Component {
   }
 }
 
+// 样式
 var styles = StyleSheet.create({
   thumb: {
     width: 80,

@@ -10,20 +10,6 @@ var React = require('react-native');
 // 搜索页面
 var SearchPage = require('./SearchPage')
 
-class HelloWorld extends React.Component {
-  render() {
-    // 代码视图
-    //return React.createElement(React.Text, {style: styles.text}, "Hello World!");
-
-    // JSX视图
-    return (
-      <React.Text style={styles.text}>
-        Hello World (Again)
-      </React.Text>
-    );
-  }
-}
-
 // 使用Navigator管理组件, 注意: 不要纠结于跨平台, 学习为主
 class WclPropertyFinderApp extends React.Component {
   render() {
@@ -31,7 +17,7 @@ class WclPropertyFinderApp extends React.Component {
       <React.NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: '搜房',
+          title: '搜房产',
           component: SearchPage,
         }}/>
     );
@@ -52,8 +38,4 @@ var styles = React.StyleSheet.create({
 });
 
 // 注册组件
-React.AppRegistry.registerComponent(
-  'WclPropertyFinder', function () {
-    return WclPropertyFinderApp
-  }
-);
+React.AppRegistry.registerComponent('WclPropertyFinder', () => WclPropertyFinderApp);
