@@ -150,7 +150,7 @@ function urlForQueryAndPage(key, value, pageNumber) {
 
 ListView设置数据源**dataSource**, 每行渲染**renderRow**.
 
-```
+``` js
   render() {
     return (
       <ListView
@@ -163,7 +163,7 @@ ListView设置数据源**dataSource**, 每行渲染**renderRow**.
 
 点击ListView的行, 可以跳转至**房产信息**页面.
 
-```
+``` js
   rowPressed(propertyGuid) {
     var property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
     this.props.navigator.push({
