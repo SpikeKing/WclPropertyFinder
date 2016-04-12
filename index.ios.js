@@ -1,5 +1,5 @@
 /**
- * React Native App - 搜房类应用
+ * React Native App - 搜索房产应用
  * https://github.com/facebook/react-native
  */
 
