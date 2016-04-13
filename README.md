@@ -207,6 +207,6 @@ class PropertyView extends Component {
 
 使用 RN 开发应用非常快捷, 复用逻辑到多个平台, 节省开发成本, 不过目前正在完善中.
 
-> 本文参考我的朋友Tom的一篇[文章](https://www.raywenderlich.com/). 
+> 本文参考我的朋友Tom的一篇[文章](https://www.raywenderlich.com/u/tomelliott). 
 
 OK, that's all! Enjoy it!
